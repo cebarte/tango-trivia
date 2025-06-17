@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Compás del Bandoneón - Trivia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-content {
+            padding: 0 2rem 2rem;
+        }
+
+        .icon-container {
+            background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .icon {
+            width: 48px;
+            height: 48px;
+            color: white;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #b45309 0%, #c2410c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .description {
+            color: #374151;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 0.75rem;
+        }
+
+        .button:hover {
+            background: linear-gradient(135deg, #b45309 0%, #c2410c 100%);
+            transform: translateY(-1px);
+        }
+
+        .button-outline {
+            background: white;
+            color: #d97706;
+            border: 2px solid #d97706;
+        }
+
+        .button-outline:hover {
+            background: #fef7ed;
+        }
+
+        .progress-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+            transition: width 0.3s ease;
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #374151;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .option-button {
+            background: white;
+            border: 2px solid #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .option-button:hover {
+            background: #fef7ed;
+            border-color: #fbbf24;
+        }
+
+        .result-container {
+            text-align: center;
+        }
+
+        .artist-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #b45309 0%, #c2410c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .artist-era {
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .artist-description {
+            color: #374151;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .recommendation-box {
+            background: #fef7ed;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-text {
+            color: #b45309;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .button-group .button {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .final-message {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .card-header, .card-content {
+                padding: 1.5rem;
+            }
+            
+            .title {
+                font-size: 1.75rem;
+            }
+            
+            .artist-name {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button-group .button {
+                min-width: auto;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- Pantalla de inicio -->
+        <div id="start-screen">
+            <div class="card-header">
+                <div class="icon-container">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                    </svg>
+                </div>
+                <h1 class="title">Al Compás del Bandoneón</h1>
+                <p class="subtitle">
+                    ¡Hola! Me da mucha alegría que hayas llegado hasta acá. Sé que el tango puede parecer algo lejano, pero te aseguro que hay un cantante perfecto esperándote.
+                </p>
+            </div>
+            <div class="card-content">
+                <p class="description">
+                    Vamos a hacer un pequeño juego: te haré algunas preguntas súper sencillas sobre tus gustos musicales, y al final te recomendaré un artista de tango que seguro va a conectar con vos.
+                </p>
+                <button class="button" onclick="startTrivia()">
+                    ¡Empezar la trivia! 🎵
+                </button>
+            </div>
+        </div>
+
+        <!-- Pantalla de preguntas -->
+        <div id="question-screen" class="hidden">
+            <div class="card-header">
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span id="question-counter">Pregunta 1 de 4</span>
+                        <span id="progress-percentage">25% completado</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="question-title" id="question-text"></h2>
+                <div id="options-container"></div>
+            </div>
+        </div>
+
+        <!-- Pantalla de resultado -->
+        <div id="result-screen" class="hidden">
+            <div class="card-header">
+                <div class="icon-container" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9.5 16.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5zM6.5 12.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5S8.83 11 8 11s-1.5.67-1.5 1.5zM14.5 12.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5z"/>
+                    </svg>
+                </div>
+                <h1 class="title" style="font-size: 1.5rem;">¡Tu artista de tango ideal es...!</h1>
+            </div>
+            <div class="card-content">
+                <div class="result-container">
+                    <h2 class="artist-name" id="artist-name"></h2>
+                    <p class="artist-era" id="artist-era"></p>
+                    <p class="artist-description" id="artist-description"></p>
+                    
+                    <div class="recommendation-box">
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <svg style="width: 24px; height: 24px; color: #f59e0b; margin-top: 2px; flex-shrink: 0;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <div>
+                                <h3 class="recommendation-title">¿Por qué es perfecto para vos?</h3>
+                                <p class="recommendation-text" id="recommendation-reason"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="final-message">
+                        ¡Dale una oportunidad y dejate llevar por su música! 🎶
+                    </p>
+                    
+                    <div class="button-group">
+                        <button class="button button-outline" onclick="resetTrivia()">
+                            Hacer la trivia de nuevo
+                        </button>
+                        <button class="button" id="youtube-button">
+                            Escuchar en YouTube 🎵
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                question: "Cuando escuchás música, ¿qué te gusta más?",
+                options: [
+                    { text: "Canciones que me pongan melancólico o nostálgico", value: "melancholic" },
+                    { text: "Temas románticos que me lleguen al corazón", value: "romantic" },
+                    { text: "Música que me dé energía y me levante el ánimo", value: "energetic" }
+                ]
+            },
+            {
+                id: 2,
+                question: "¿Qué estilo preferís en general?",
+                options: [
+                    { text: "Lo clásico y tradicional", value: "classic" },
+                    { text: "Una mezcla entre clásico y moderno", value: "mixed" },
+                    { text: "Lo más actual y contemporáneo", value: "modern" }
+                ]
+            },
+            {
+                id: 3,
+                question: "¿Qué géneros escuchás más?",
+                options: [
+                    { text: "Rock, indie o música alternativa", value: "rock" },
+                    { text: "Pop, trap o música urbana", value: "pop" },
+                    { text: "Folklore, jazz o música más tradicional", value: "traditional" }
+                ]
+            },
+            {
+                id: 4,
+                question: "¿Cómo te gustan las voces?",
+                options: [
+                    { text: "Intensas y dramáticas", value: "intense" },
+                    { text: "Suaves y melódicas", value: "soft" },
+                    { text: "Con mucha personalidad y carácter", value: "character" }
+                ]
+            }
+        ];
+
+        const artists = {
+            gardel: {
+                name: "Carlos Gardel",
+                description: "El rey del tango, voz suave y melódica que marcó la historia",
+                reason: "Tu gusto por lo clásico y las melodías que llegan al corazón conecta perfecto con Gardel",
+                era: "Clásico (1890-1935)"
+            },
+            rivero: {
+                name: "Edmundo Rivero",
+                description: "Voz grave y dramática, el poeta del arrabal",
+                reason: "Tu preferencia por voces intensas y música con carácter hace que Rivero sea ideal para vos",
+                era: "Clásico (1911-1986)"
+            },
+            rinaldi: {
+                name: "Susana Rinaldi",
+                description: "La tana, fuerte y expresiva, renovó el tango con su estilo único",
+                reason: "Tu gusto por lo moderno y las voces con personalidad conecta perfecto con Susana",
+                era: "Moderna (1935-presente)"
+            },
+            varela: {
+                name: "Adriana Varela",
+                description: "Intensa y callejera, la voz del tango contemporáneo",
+                reason: "Tu preferencia por música actual y voces intensas hace que Adriana sea perfecta para vos",
+                era: "Contemporánea (1952-presente)"
+            },
+            delcarril: {
+                name: "Hugo del Carril",
+                description: "Romántico y melódico, el galán del tango",
+                reason: "Tu amor por lo romántico y las melodías suaves conecta ideal con Hugo",
+                era: "Clásico (1912-1989)"
+            },
+            ardit: {
+                name: "Ariel Ardit",
+                description: "Actual pero respetuoso del estilo clásico, el tango de hoy",
+                reason: "Tu gusto equilibrado entre lo clásico y lo moderno hace que Ariel sea perfecto",
+                era: "Actual (1962-presente)"
+            }
+        };
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function startTrivia() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('question-screen').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            
+            document.getElementById('question-counter').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+            document.getElementById('progress-percentage').textContent = `${Math.round(progress)}% completado`;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-button';
+                button.textContent = option.text;
+                button.onclick = () => handleAnswer(option.value);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function handleAnswer(value) {
+            answers.push(value);
+            
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function getRecommendation() {
+            const answerCounts = answers.reduce((acc, answer) => {
+                acc[answer] = (acc[answer] || 0) + 1;
+                return acc;
+            }, {});
+
+            if (answerCounts.melancholic >= 2 && answerCounts.classic >= 1) {
+                return artists.gardel;
+            }
+            if (answerCounts.intense >= 2 || (answerCounts.rock >= 1 && answerCounts.character >= 1)) {
+                return artists.rivero;
+            }
+            if (answerCounts.modern >= 2 && answerCounts.character >= 1) {
+                return artists.rinaldi;
+            }
+            if (answerCounts.modern >= 1 && answerCounts.intense >= 1) {
+                return artists.varela;
+            }
+            if (answerCounts.romantic >= 2 && answerCounts.soft >= 1) {
+                return artists.delcarril;
+            }
+            if (answerCounts.mixed >= 1 || (answerCounts.classic >= 1 && answerCounts.modern >= 1)) {
+                return artists.ardit;
+            }
+
+            return artists.gardel;
+        }
+
+        function showResult() {
+            const recommendation = getRecommendation();
+            
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            
+            document.getElementById('artist-name').textContent = recommendation.name;
+            document.getElementById('artist-era').textContent = recommendation.era;
+            document.getElementById('artist-description').textContent = recommendation.description;
+            document.getElementById('recommendation-reason').textContent = recommendation.reason;
+            
+            const youtubeButton = document.getElementById('youtube-button');
+            youtubeButton.onclick = () => {
+                const searchQuery = encodeURIComponent(recommendation.name + ' tango');
+                window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
+            };
+        }
+
+        function resetTrivia() {
+            currentQuestion = 0;
+            answers = [];
+            
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
